@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="action.js"></script>
     <title>Word Count</title>
 </head>
 <body>
+
     <div class="header">
         <h1>Word Counter</h1>
     </div>
@@ -21,20 +23,35 @@
                 <li class="sentence-count"><span id="sentence-count">0</span> sentences</li> 
             </ul>
         </div>
-        <div class="tooltip copy">
-            <span class="copy-btn" >&#9861;</span>
-            <span class="tooltip-text copy" >Copy text</span>
+        
+        <div class="tool-bar">
+            <div class="tooltip copy">
+                <span class="copy-btn" >&#9861;</span>
+                <span class="tooltip-text copy" >Copy text</span>
+            </div>
+            <div class="tooltip clear">
+                <span class="clear-btn" >&times;</span><span class="tooltip-text clear" >Clear pad</span>
+            </div>
+            <div class="tooltip redo">
+                <span class="redo-btn" >&#9850;</span><span class="tooltip-text redo" >Re-check</span>
+            </div>
+            <div class="tooltip theme">
+                <span class="theme-btn" id="theme">&#9790;</span>
+                <span class="tooltip-text theme">Dark</span>
+            </div>
+            <div class="tooltip bold" >
+                <span class="bold-btn" id="bold-text">&#914;</span>
+                <span class="tooltip-text bold">Bold</span>
+            </div>
+            <div class="tooltip size-plus">
+                <span class="size-plus-btn" id="plus-size">A+</span>
+                <span class="size-minus-btn" id="minus-size">A-</span>
+            </div>
+           
         </div>
-        <div class="tooltip clear">
-            <span class="clear-btn" >&times;</span><span class="tooltip-text clear" >Clear pad</span>
-        </div>
-        <div class="tooltip redo">
-            <span class="redo-btn" >&#9850;</span><span class="tooltip-text redo" >Re-check</span>
-          
-        </div>
-      
+
         <span class="right-arrow">&rarr;</span>
-        <textarea class="inner" placeholder="Type here..." >
+        <textarea class="inner" placeholder="Type here..." spellcheck="true" >
 
         </textarea>
         <br>
@@ -58,6 +75,17 @@ body{
 }
 .header h1{
     text-shadow: 0 2px 2px gray;
+}
+.tool-bar{
+    display: flex;
+    flex-direction: column;
+    flex-flow: column;
+    padding: 10px;
+    justify-content: center;
+    align-content: stretch;
+    position: absolute;
+    right: -90px;
+    top: 80px;
 }
 .container{
     display: flex;
@@ -88,16 +116,15 @@ body{
     width: calc(100% - 20px);
     border: 1px solid lightgray;
     min-height: calc(100% - 110px);
-    background: #f2f2f2;
     border-radius: 2px;
-    background: #fff;
     padding: 15px;
     box-sizing: border-box;
-    font-size: 21px;
+    background:white;
+    font-size: 17px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .inner::selection{
-    background: lavender;
+    background: rgb(205, 205, 236);
     color: darkslategrey;
 }
 
@@ -114,25 +141,26 @@ body{
     position: absolute;
     bottom: 5px;
     right: 20px;
+
     font-size: 17px;
     color: steelblue;
 }
-.clear-btn , .copy-btn, .redo-btn{ 
+.clear-btn , .copy-btn, .redo-btn, .theme-btn,.bold-btn,.size-plus-btn,.size-minus-btn{ 
     display: flex;
     flex-direction: column;
     justify-content: center;
     color: #fff;
     font-size: 24px;
     font-weight: bold;
-    
+    justify-self: left;
     border-radius: 75%;
     padding: 5px;
     width: 20px;
     height: 20px;
     vertical-align: center;
     text-align: center;
-    /* right: -20px; */
-    
+    right: -20px; 
+    align-self: auto;
     transition: 0.4s ease-in-out;
     /* z-index: 10; */
     box-shadow: 0 1px 1px 1px lightgray;
@@ -149,16 +177,34 @@ body{
 .copy-btn{
     background-color: darkslategrey;
     /* top: 135px; */
+}
+.theme-btn{
+    background-color: black;
 
+}
+.bold-btn{
+    background-color: aliceblue;
+    color: gray;
+    font-size: 20px;
+}
+.size-plus-btn,.size-minus-btn{
+    color:darkslategray;
+    font-size: 17px;
+    padding: 8px;
+    border: 1px solid gray;
+    background: #f1f1f1;
+}
+.tooltip:hover{
+    cursor:pointer;
 }
 
 textarea{
     font-weight: lighter;
-    color: darkslategray;
     line-height: 1.1em;
+    font-size: 14px;
 }
 
-.copy-btn:hover, .clear-btn:hover , .redo-btn:hover{
+.copy-btn:hover, .clear-btn:hover , .redo-btn:hover, .theme-btn:hover, .bold-btn:hover,.size-plus-btn:hover,.size-minus-btn:hover{
     cursor: pointer;
     transform: scale(1.2);
     /* animation: smooth 0.7s ease-in-out backwards; */
@@ -181,17 +227,16 @@ textarea{
     display: flex;
     flex-direction: row;
     flex-flow: row;
-    justify-content: space-evenly;
+    justify-content: left;
     align-items: center;
     width: 100px;
     padding: 4px;
     z-index: 10;
-    position: absolute;
     right: -80px;
     transition: all .5s ease-in-out;
     
 }
-.tooltip.copy{
+/* .tooltip.copy{
     top: 100px;
 }
 .tooltip.clear{
@@ -200,6 +245,10 @@ textarea{
 .tooltip.redo{
     top: 170px;
 }
+
+.tooltip.theme{
+    top: 205px;
+} */
 .tooltip-text{
     background: #f8f8f8f8;
     border-radius: 7px;
@@ -208,7 +257,6 @@ textarea{
     font-size: 13px;
     font-weight: bold;
     box-shadow: 1px 2px 1px gray;
-   
     transition: all .5s ease-in-out;
 }
 .letter-count , .word-count , .sentence-count{

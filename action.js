@@ -1,10 +1,13 @@
 window.onload=()=>{
+    document.querySelector('.inner').style.backgroundColor="white";
+    document.querySelector('textarea').style.color="darkslategray";
 
     var textArea = document.querySelector('textarea');
     var letterCount = document.querySelector('#letter-count');
     var wordCount = document.querySelector('#word-count');
     var sentenceCount = document.querySelector('#sentence-count');
     var letters=0;var words=0;var sentences=0;var wPs=0;
+    var current_size =  17;
     if(textArea.value!=''){
        
         analyseText(textArea.value);
@@ -42,7 +45,7 @@ window.onload=()=>{
         for(let i=0;i<lines.length;i++){
             var count_words = lines[i].split(' ');
             for(let m=0;m<count_words.length;m++){
-                if(count_words[m].length>1){
+                if(count_words[m].length>2){
                     words+=1;
                 }
             }
@@ -91,6 +94,28 @@ window.onload=()=>{
         if(e.target.matches('.clear-btn')){
             clear();
           
+        }
+        if(e.target.matches('#bold-text')){
+            textArea.style.fontWeight=(textArea.style.fontWeight=="bold")?"normal":"bold";
+            document.querySelector('#bold-text').style.color=(textArea.style.fontWeight=="bold")?"black":"gray";
+
+        }
+        if(e.target.matches('#plus-size')){
+            current_size+=2;
+            textArea.style.fontSize=current_size+'px';
+        }
+        if(e.target.matches('#minus-size')){
+            current_size-=2;
+            textArea.style.fontSize=current_size+'px';
+          
+        }
+        if(e.target.matches('#theme')){
+            var inner = document.querySelector('.inner').style.backgroundColor;
+            var inner_= document.querySelector('textarea').style.color;
+            console.log(inner,inner_);
+            document.querySelector('.inner').style.backgroundColor=(inner=='white')?'darkslategray':'white';
+            document.querySelector('textarea').style.color=(inner_=="darkslategray")?"white":"darkslategray";
+            
         }
     });
 
